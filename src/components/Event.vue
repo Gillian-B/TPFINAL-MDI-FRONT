@@ -38,12 +38,12 @@ export default {
   },
   methods: {
       onclick: function(participantName) {
-          axios.post(`http://localhost:8080/testjpa/rest/polls/add/${this.id}`, {
+          axios.post(`http://localhost:8080/testjpa/rest/polls/add/${this.$route.params.id}`, {
           name: participantName
         })
         .then( response => {
           this.participantName = ""
-          axios.get(`http://localhost:8080/testjpa/rest/polls/${this.id}`)
+          axios.get(`http://localhost:8080/testjpa/rest/polls/${this.$route.params.id}`)
             .then((response) => {
             this.eventName = response.data.name
          
@@ -60,11 +60,11 @@ export default {
       }
   },
   mounted: function() {
-      axios.get(`http://localhost:8080/testjpa/rest/polls/${this.id}`)
+      axios.get(`http://localhost:8080/testjpa/rest/polls/${this.$route.params.id}`)
         .then((response) => {
           this.eventName = response.data.name
          
-            tshis.lParticipantName = response.data.lUsers.map( u => u.name)
+            this.lParticipantName = response.data.lUsers.map( u => u.name)
 
         })
         .catch(function (error) {
